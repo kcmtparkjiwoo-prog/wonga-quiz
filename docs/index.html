@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>원가분석사 기출 학습</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#fff; --fg:#16191d; --sub:#6b7280; --line:#e3e6ea;
+  --accent:#2563eb; --accent-soft:#e8efff;
+  --ok:#0f7b3f; --ok-soft:#e3f5ea; --no:#c0392b; --no-soft:#fdeaea;
+  --badge:#f0f2f5;
+}
+:root[data-theme="dark"]{
+  --bg:#14171a; --card:#1c2024; --fg:#e8eaed; --sub:#9aa3ad; --line:#2c3238;
+  --accent:#5b9bff; --accent-soft:#1e2b45;
+  --ok:#4ade80; --ok-soft:#16301f; --no:#f87171; --no-soft:#331b1b;
+  --badge:#262b31;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171a; --card:#1c2024; --fg:#e8eaed; --sub:#9aa3ad; --line:#2c3238;
+    --accent:#5b9bff; --accent-soft:#1e2b45;
+    --ok:#4ade80; --ok-soft:#16301f; --no:#f87171; --no-soft:#331b1b;
+    --badge:#262b31;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  font-size:16px; line-height:1.6; -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:760px; margin:0 auto; padding:16px 16px 64px}
+h1{font-size:20px; margin:4px 0 2px; letter-spacing:-.02em}
+.lead{color:var(--sub); font-size:13px; margin:0 0 18px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px}
+button{font:inherit; color:inherit; cursor:pointer}
+
+/* 홈 */
+.subj{display:block; width:100%; text-align:left; padding:15px 16px; margin-bottom:10px;
+  background:var(--card); border:1px solid var(--line); border-radius:14px}
+.subj:hover{border-color:var(--accent)}
+.subj .nm{font-weight:600; font-size:16px}
+.subj .mt{color:var(--sub); font-size:13px; margin-top:3px}
+.subj .bar{height:5px; background:var(--badge); border-radius:3px; margin-top:9px; overflow:hidden}
+.subj .bar i{display:block; height:100%; background:var(--accent); border-radius:3px}
+.row{display:flex; gap:8px; align-items:center}
+.spacer{flex:1}
+.ghost{background:none; border:1px solid var(--line); border-radius:9px; padding:7px 12px;
+  font-size:13px; color:var(--sub)}
+.ghost:hover:not(:disabled){border-color:var(--accent); color:var(--accent)}
+.ghost:disabled{opacity:.45; cursor:default}
+
+/* 문제 */
+.top{display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap}
+.pill{font-size:12px; padding:3px 9px; border-radius:999px; background:var(--badge); color:var(--sub)}
+.pill.hot{background:var(--accent-soft); color:var(--accent); font-weight:600}
+.qbox{padding:18px 17px}
+.stem{font-size:17px; line-height:1.65; white-space:pre-wrap; word-break:break-word}
+.src{color:var(--sub); font-size:12px; margin-top:12px}
+.choices{margin-top:14px; display:flex; flex-direction:column; gap:9px}
+.ch{display:flex; gap:10px; align-items:flex-start; width:100%; text-align:left;
+  padding:13px 14px; background:var(--card); border:1.5px solid var(--line); border-radius:12px;
+  word-break:break-word}
+.ch:hover:not(:disabled){border-color:var(--accent)}
+.ch:disabled{cursor:default}
+.ch .no{flex:0 0 auto; font-weight:600; color:var(--sub)}
+.ch.pick-ok{border-color:var(--ok); background:var(--ok-soft)}
+.ch.pick-no{border-color:var(--no); background:var(--no-soft)}
+.ch.reveal{border-color:var(--ok); background:var(--ok-soft)}
+.verdict{margin-top:16px; padding:14px 15px; border-radius:12px; font-size:15px}
+.verdict.ok{background:var(--ok-soft); color:var(--ok)}
+.verdict.no{background:var(--no-soft); color:var(--no)}
+.verdict b{font-weight:700}
+.ansbox{margin-top:16px; padding:15px; border-radius:12px; background:var(--accent-soft);
+  white-space:pre-wrap; word-break:break-word}
+.ansbox .lb{font-size:12px; color:var(--sub); display:block; margin-bottom:5px}
+.primary{width:100%; margin-top:16px; padding:14px; border:0; border-radius:12px;
+  background:var(--accent); color:#fff; font-size:16px; font-weight:600}
+.primary.alt{background:var(--card); color:var(--fg); border:1.5px solid var(--line)}
+.empty{padding:40px 20px; text-align:center; color:var(--sub)}
+.hide{display:none !important}
+.foot{margin-top:22px; color:var(--sub); font-size:12px; text-align:center; line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 홈 -->
+  <section id="home">
+    <div class="row">
+      <div>
+        <h1>원가분석사 기출 학습</h1>
+        <p class="lead" id="homeLead">불러오는 중…</p>
+      </div>
+      <span class="spacer"></span>
+      <button class="ghost" id="themeBtn" title="화면 밝기">◐</button>
+    </div>
+    <div id="subjList"></div>
+    <div class="row" style="margin-top:14px">
+      <button class="ghost" id="wrongBtn">오답노트</button>
+      <span class="spacer"></span>
+      <button class="ghost" id="resetBtn">기록 지우기</button>
+    </div>
+    <p class="foot">
+      제1~18회 전체와 제20회 일부에서 뽑았습니다.<br>
+      해설은 아직 없습니다. 정답과 출처만 나옵니다.
+    </p>
+  </section>
+
+  <!-- 문제 -->
+  <section id="quiz" class="hide">
+    <div class="row" style="margin-bottom:14px">
+      <button class="ghost" id="backBtn">← 과목</button>
+      <span class="spacer"></span>
+      <span class="pill" id="progress"></span>
+    </div>
+    <div id="qArea"></div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+
+/* ────────── 저장 ────────── */
+var KEY = "wonga_v1";
+function load(){
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+  catch (e) { return {}; }
+}
+function save(s){
+  try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {}
+}
+var store = load();
+if (!store.stats) store.stats = {};   // key -> {seen, correct}
+if (!store.wrong) store.wrong = {};   // key -> [id, …]
+
+function stat(key){
+  if (!store.stats[key]) store.stats[key] = { seen: 0, correct: 0 };
+  return store.stats[key];
+}
+function wrongList(key){
+  if (!store.wrong[key]) store.wrong[key] = [];
+  return store.wrong[key];
+}
+
+/* ────────── 화면 밝기 ────────── */
+function applyTheme(){
+  if (store.theme) document.documentElement.setAttribute("data-theme", store.theme);
+  else document.documentElement.removeAttribute("data-theme");
+}
+applyTheme();
+document.getElementById("themeBtn").onclick = function(){
+  store.theme = store.theme === "dark" ? "light" : store.theme === "light" ? "" : "dark";
+  save(store); applyTheme();
+};
+
+/* ────────── 가중 랜덤 ────────── */
+// 가중치 = 그 문제가 출제된 회차 수. 5회 나온 문제는 1회짜리보다 5배 자주 나온다.
+function buildCum(pool){
+  var cum = new Array(pool.length), t = 0;
+  for (var i = 0; i < pool.length; i++){ t += pool[i].f; cum[i] = t; }
+  return cum;
+}
+function upperBound(cum, r){          // cum[i] > r 인 첫 i
+  var lo = 0, hi = cum.length - 1;
+  while (lo < hi){
+    var mid = (lo + hi) >> 1;
+    if (cum[mid] > r) hi = mid; else lo = mid + 1;
+  }
+  return lo;
+}
+function pick(pool, cum, avoid){
+  var total = cum[cum.length - 1];
+  for (var t = 0; t < 24; t++){
+    var i = upperBound(cum, Math.random() * total);
+    if (!avoid.has(pool[i].id)) return i;
+  }
+  for (var j = 0; j < pool.length; j++) if (!avoid.has(pool[j].id)) return j;
+  return Math.floor(Math.random() * pool.length);
+}
+
+/* ────────── 상태 ────────── */
+var META = null, CUR = null;
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+/* ────────── 홈 ────────── */
+function renderHome(){
+  $("quiz").classList.add("hide");
+  $("home").classList.remove("hide");
+  var wrongTotal = 0;
+  for (var k in store.wrong) wrongTotal += store.wrong[k].length;
+  $("wrongBtn").textContent = "오답노트 " + wrongTotal + "문제";
+  $("wrongBtn").disabled = wrongTotal === 0;
+
+  var html = "";
+  META.subjects.forEach(function(s){
+    var st = stat(s.key);
+    var rate = st.seen ? Math.round(st.correct / st.seen * 100) : 0;
+    html += '<button class="subj" data-key="' + esc(s.key) + '">'
+      + '<div class="nm">' + esc(s.name) + '</div>'
+      + '<div class="mt">' + s.count.toLocaleString() + '문제'
+      + (st.seen ? ' · 푼 ' + st.seen + '문제 · 정답률 ' + rate + '%' : '')
+      + '</div>'
+      + (st.seen ? '<div class="bar"><i style="width:' + rate + '%"></i></div>' : '')
+      + '</button>';
+  });
+  $("subjList").innerHTML = html;
+  Array.prototype.forEach.call(document.querySelectorAll(".subj"), function(b){
+    b.onclick = function(){ startSubject(b.getAttribute("data-key")); };
+  });
+  $("homeLead").textContent = "과목을 고르면 자주 나온 문제부터 한 문제씩 나옵니다.";
+}
+
+/* ────────── 시작 ────────── */
+function fetchSubject(key){
+  return fetch("data/" + encodeURIComponent(key) + ".json").then(function(r){
+    if (!r.ok) throw new Error(key + " 불러오기 실패 (" + r.status + ")");
+    return r.json();
+  });
+}
+
+function startSubject(key){
+  fetchSubject(key).then(function(items){
+    CUR = {
+      key: key,
+      name: (META.subjects.filter(function(s){ return s.key === key; })[0] || {}).name || key,
+      mode: "quiz",
+      pool: items,
+      cum: buildCum(items),
+      recent: [],
+      answered: 0,
+      streak: 0
+    };
+    $("home").classList.add("hide");
+    $("quiz").classList.remove("hide");
+    nextQuestion();
+  }).catch(showError);
+}
+
+function startWrong(){
+  var keys = Object.keys(store.wrong).filter(function(k){ return store.wrong[k].length; });
+  if (!keys.length) return;
+  Promise.all(keys.map(fetchSubject)).then(function(all){
+    var pool = [];
+    all.forEach(function(items, idx){
+      var key = keys[idx], want = {};
+      store.wrong[key].forEach(function(id){ want[id] = 1; });
+      items.forEach(function(q){
+        if (want[q.id]){ q._key = key; pool.push(q); }
+      });
+    });
+    if (!pool.length){ store.wrong = {}; save(store); renderHome(); return; }
+    CUR = {
+      key: null, name: "오답노트", mode: "wrong",
+      pool: pool, cum: buildCum(pool), recent: [], answered: 0, streak: 0
+    };
+    $("home").classList.add("hide");
+    $("quiz").classList.remove("hide");
+    nextQuestion();
+  }).catch(showError);
+}
+
+function showError(e){
+  $("home").classList.add("hide");
+  $("quiz").classList.remove("hide");
+  $("qArea").innerHTML = '<div class="card empty">' + esc(e.message || e)
+    + '<br><br>파일을 직접 열면 데이터를 못 읽습니다.<br>웹 주소로 접속해 주세요.</div>';
+}
+
+/* ────────── 출제 ────────── */
+function nextQuestion(){
+  var avoid = new Set(CUR.recent);
+  var idx = pick(CUR.pool, CUR.cum, avoid);
+  var q = CUR.pool[idx];
+  CUR.recent.push(q.id);
+  var cap = Math.min(30, Math.floor(CUR.pool.length / 3));
+  while (CUR.recent.length > cap) CUR.recent.shift();
+  CUR.q = q;
+  drawQuestion(q);
+}
+
+function drawQuestion(q){
+  var isObj = !!q.c;
+  var hot = q.f >= 2
+    ? '<span class="pill hot">빈출 ' + q.f + '회 · 제' + q.r.join('·') + '회 출제</span>'
+    : '';
+  var html = '<div class="top">'
+    + '<span class="pill">' + esc(CUR.name) + '</span>'
+    + '<span class="pill">' + (isObj ? '객관식' : '주관식') + '</span>'
+    + hot + '</div>'
+    + '<div class="card qbox">'
+    + '<div class="stem">' + esc(q.q) + '</div>'
+    + '<div class="src">' + esc(q.o) + '</div>';
+
+  if (isObj){
+    html += '<div class="choices">';
+    for (var i = 0; i < q.c.length; i++){
+      html += '<button class="ch" data-no="' + (i + 1) + '">'
+        + '<span class="no">' + "①②③④".charAt(i) + '</span>'
+        + '<span>' + esc(q.c[i]) + '</span></button>';
+    }
+    html += '</div>';
+  } else {
+    html += '<button class="primary" id="revealBtn">정답 보기</button>';
+  }
+  html += '<div id="after"></div></div>';
+  $("qArea").innerHTML = html;
+
+  $("progress").textContent = CUR.answered + "문제"
+    + (CUR.streak > 1 ? " · 연속 " + CUR.streak : "");
+
+  if (isObj){
+    Array.prototype.forEach.call(document.querySelectorAll(".ch"), function(b){
+      b.onclick = function(){ answer(parseInt(b.getAttribute("data-no"), 10)); };
+    });
+  } else {
+    $("revealBtn").onclick = reveal;
+  }
+}
+
+function lockChoices(){
+  Array.prototype.forEach.call(document.querySelectorAll(".ch"), function(b){
+    b.disabled = true;
+  });
+}
+
+function answer(no){
+  var q = CUR.q;
+  var ok = q.a.indexOf(no) !== -1;
+  lockChoices();
+  Array.prototype.forEach.call(document.querySelectorAll(".ch"), function(b){
+    var n = parseInt(b.getAttribute("data-no"), 10);
+    if (n === no) b.classList.add(ok ? "pick-ok" : "pick-no");
+    else if (q.a.indexOf(n) !== -1) b.classList.add("reveal");
+  });
+
+  var key = CUR.mode === "wrong" ? q._key : CUR.key;
+  var st = stat(key);
+  st.seen++;
+  if (ok) st.correct++;
+  var list = wrongList(key);
+  var at = list.indexOf(q.id);
+  if (ok){ if (at !== -1) list.splice(at, 1); }
+  else if (at === -1) list.push(q.id);
+  save(store);
+
+  CUR.answered++;
+  CUR.streak = ok ? CUR.streak + 1 : 0;
+
+  // 오답노트에서 맞히면 그 자리에서 빼낸다. 안 그러면 같은 세션에 계속 다시 나온다.
+  var cleared = false;
+  if (CUR.mode === "wrong" && ok){
+    CUR.pool = CUR.pool.filter(function(p){ return p.id !== q.id; });
+    if (CUR.pool.length){
+      CUR.cum = buildCum(CUR.pool);
+      CUR.recent = [];
+    } else {
+      cleared = true;
+    }
+  }
+
+  var names = q.a.map(function(n){ return "①②③④".charAt(n - 1); }).join(", ");
+  var note = ok
+    ? (CUR.mode === "wrong" ? "<br><span style='font-size:13px'>오답노트에서 뺐습니다.</span>" : "")
+    : "<br><span style='font-size:13px'>오답노트에 담았습니다.</span>";
+  $("after").innerHTML =
+    '<div class="verdict ' + (ok ? "ok" : "no") + '">'
+    + (ok ? "정답입니다" : "오답입니다") + ' &nbsp;<b>정답 ' + names + '</b>'
+    + note + '</div>'
+    + (cleared
+        ? '<div class="card empty" style="margin-top:14px">오답노트를 다 풀었습니다.</div>'
+          + '<button class="primary" id="nextBtn">과목으로</button>'
+        : '<button class="primary" id="nextBtn">다음 문제</button>');
+  $("nextBtn").onclick = cleared
+    ? function(){ CUR = null; renderHome(); }
+    : nextQuestion;
+  $("progress").textContent = CUR.answered + "문제"
+    + (CUR.streak > 1 ? " · 연속 " + CUR.streak : "");
+}
+
+function reveal(){
+  var q = CUR.q;
+  // 정답표에서 ' / ' 는 줄바꿈 자리다. 분수의 '/'(공백 없음)와 구분된다.
+  var text = String(q.x).split(" / ").join("\n");
+  $("revealBtn").classList.add("hide");
+  CUR.answered++;
+  $("after").innerHTML =
+    '<div class="ansbox"><span class="lb">정답</span>' + esc(text) + '</div>'
+    + '<button class="primary" id="nextBtn">다음 문제</button>';
+  $("nextBtn").onclick = nextQuestion;
+  $("progress").textContent = CUR.answered + "문제";
+}
+
+/* ────────── 조작 ────────── */
+$("backBtn").onclick = function(){ CUR = null; renderHome(); };
+$("wrongBtn").onclick = startWrong;
+$("resetBtn").onclick = function(){
+  if (!confirm("푼 기록과 오답노트를 모두 지웁니다. 계속할까요?")) return;
+  var theme = store.theme;
+  store = { stats: {}, wrong: {}, theme: theme };
+  save(store); renderHome();
+};
+
+document.addEventListener("keydown", function(e){
+  if (!CUR || $("quiz").classList.contains("hide")) return;
+  var nx = $("nextBtn");
+  if (nx && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); nx.click(); return; }
+  var rv = $("revealBtn");
+  if (rv && !rv.classList.contains("hide") && (e.key === "Enter" || e.key === " ")){
+    e.preventDefault(); rv.click(); return;
+  }
+  if (e.key >= "1" && e.key <= "4"){
+    var b = document.querySelector('.ch[data-no="' + e.key + '"]');
+    if (b && !b.disabled) b.click();
+  }
+});
+
+/* ────────── 시작 ────────── */
+fetch("data/meta.json").then(function(r){
+  if (!r.ok) throw new Error("meta.json 불러오기 실패 (" + r.status + ")");
+  return r.json();
+}).then(function(m){
+  META = m;
+  renderHome();
+}).catch(showError);
+</script>
+</body>
+</html>

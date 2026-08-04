@@ -1,0 +1,47 @@
+{
+ "built": "2026-08-04",
+ "subjects": [
+  {
+   "key": "재무회계",
+   "name": "재무회계",
+   "count": 398,
+   "weight": 541,
+   "objective": 397,
+   "subjective": 1
+  },
+  {
+   "key": "원가관리회계",
+   "name": "원가·관리회계",
+   "count": 377,
+   "weight": 521,
+   "objective": 373,
+   "subjective": 4
+  },
+  {
+   "key": "제조원가계산실무",
+   "name": "제조원가계산실무",
+   "count": 956,
+   "weight": 1045,
+   "objective": 777,
+   "subjective": 179
+  },
+  {
+   "key": "공사및기타원가계산실무",
+   "name": "공사 및 기타원가계산실무",
+   "count": 491,
+   "weight": 542,
+   "objective": 403,
+   "subjective": 88
+  },
+  {
+   "key": "원가관련제도및법규",
+   "name": "원가관련 제도 및 법규",
+   "count": 511,
+   "weight": 550,
+   "objective": 413,
+   "subjective": 98
+  }
+ ],
+ "total": 2733,
+ "note": "해설 미포함"
+}
