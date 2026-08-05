@@ -104,10 +104,7 @@ button{font:inherit; color:inherit; cursor:pointer}
       <span class="spacer"></span>
       <button class="ghost" id="resetBtn">기록 지우기</button>
     </div>
-    <p class="foot">
-      제1~18회 전체와 제20회 일부에서 뽑았습니다.<br>
-      해설은 아직 없습니다. 정답과 출처만 나옵니다.
-    </p>
+    <p class="foot" id="foot"></p>
   </section>
 
   <!-- 문제 -->
@@ -216,6 +213,12 @@ function renderHome(){
     b.onclick = function(){ startSubject(b.getAttribute("data-key")); };
   });
   $("homeLead").textContent = "과목을 고르면 자주 나온 문제부터 한 문제씩 나옵니다.";
+
+  // 수록 범위는 meta.json 에서 읽는다. 여기에 회차를 손으로 적으면 금방 낡는다.
+  var total = META.subjects.reduce(function (a, s) { return a + s.count; }, 0);
+  $("foot").innerHTML =
+    esc(META.rounds_label || "") + " 기출문제 " + total.toLocaleString() + "문제<br>"
+    + "해설은 아직 없습니다. 정답과 출처만 나옵니다.";
 }
 
 /* ────────── 시작 ────────── */
