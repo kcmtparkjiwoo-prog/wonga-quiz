@@ -4,44 +4,44 @@
   {
    "key": "재무회계",
    "name": "재무회계",
-   "count": 398,
-   "weight": 541,
-   "objective": 397,
-   "subjective": 1
+   "count": 473,
+   "weight": 622,
+   "objective": 460,
+   "subjective": 13
   },
   {
    "key": "원가관리회계",
    "name": "원가·관리회계",
-   "count": 377,
-   "weight": 521,
-   "objective": 373,
-   "subjective": 4
+   "count": 454,
+   "weight": 603,
+   "objective": 435,
+   "subjective": 19
   },
   {
    "key": "제조원가계산실무",
    "name": "제조원가계산실무",
-   "count": 956,
-   "weight": 1045,
-   "objective": 777,
-   "subjective": 179
+   "count": 1024,
+   "weight": 1130,
+   "objective": 830,
+   "subjective": 194
   },
   {
    "key": "공사및기타원가계산실무",
    "name": "공사 및 기타원가계산실무",
-   "count": 491,
-   "weight": 542,
-   "objective": 403,
-   "subjective": 88
+   "count": 569,
+   "weight": 627,
+   "objective": 467,
+   "subjective": 102
   },
   {
    "key": "원가관련제도및법규",
    "name": "원가관련 제도 및 법규",
-   "count": 511,
-   "weight": 550,
-   "objective": 413,
-   "subjective": 98
+   "count": 590,
+   "weight": 634,
+   "objective": 478,
+   "subjective": 112
   }
  ],
- "total": 2733,
+ "total": 3110,
  "note": "해설 미포함"
 }
